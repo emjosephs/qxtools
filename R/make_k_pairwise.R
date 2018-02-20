@@ -3,7 +3,7 @@
 
 make_k_pairwise <- function(myMatrix){
 mygenos = as.matrix(myMatrix)/2 #divide to get frequencies
-scaleFactor = 1/(rowMeans(mygenos, na.rm=T)*(1-rowMeans(mygenos, na.rm=T)))  #scale (rows are locus so divde each by sqrt or mean(1-mean))
+scaleFactor = 1/sqrt(rowMeans(mygenos, na.rm=T)*(1-rowMeans(mygenos, na.rm=T)))  #scale (rows are locus so divde each by sqrt or mean(1-mean))
 myGcent = scale(mygenos, scale=F)
 myGstand =  t(sapply(1:nrow(myGcent), function(x) {myGcent[x,]/scaleFactor[x]}))
 myK = cov(myGstand, use="pairwise.complete.obs")
